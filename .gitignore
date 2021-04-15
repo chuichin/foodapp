@@ -1,0 +1,6 @@
+.vscode
+*.DS_Store
+*__pycache__
+*.env
+foodapp_web/static/.webassets-cache
+foodapp_web/static/gen
