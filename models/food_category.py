@@ -1,4 +1,5 @@
 from models.base_model import BaseModel
+from models.chef import Chef
 import peewee as pw
 
 class FoodCategory(BaseModel):

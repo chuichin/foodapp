@@ -6,6 +6,6 @@ import peewee as pw
 class Review(BaseModel):
     user=pw.ForeignKeyField(User, backref='reviews', on_delete="CASCADE")
     chef=pw.ForeignKeyField(Chef, backref='reviews', on_delete="CASCADE")
-    comment=pw.ForeignKeyField(default=None)
+    comment=pw.TextField(default=None)
     rating=pw.FloatField(default=None)
 

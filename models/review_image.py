@@ -1,6 +1,6 @@
 from models.base_model import BaseModel
 from models.user import User
-from models.user import Review
+from models.review import Review
 import peewee as pw
 
 class ReviewImage(BaseModel):

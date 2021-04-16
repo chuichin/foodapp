@@ -7,5 +7,11 @@ class User(BaseModel):
     password_hash = pw.CharField(null= False)
     password = None
     payment_info = pw.CharField()
-    user_photo_url = pw.TextField(null=True)
+    image_path = pw.TextField(null=True)
     
+    @hybrid_property
+    def profile_picture():
+        pass
+
+    
+
