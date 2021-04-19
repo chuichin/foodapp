@@ -84,12 +84,12 @@ def booking_new():
     
     if new_booking.save():
         return jsonify({
-            "message": "Successfully created new booking"
+            "message": "Successfully created new booking",
             "status": "success"
         }), 200
     else:
         return jsonify({
-            "message": "failed to create new booking"
+            "message": "failed to create new booking",
             "status": "success"
         })
     

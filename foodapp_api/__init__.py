@@ -13,7 +13,7 @@ from foodapp_api.blueprints.review_images.views import review_images_api_bluepri
 from foodapp_api.blueprints.food_categories.views import food_categories_api_blueprint
 from foodapp_api.blueprints.menu_images.views import menu_images_api_blueprint
 from foodapp_api.blueprints.chef_menu.views import menu_images_api_blueprint
-
+from foodapp_api.blueprints.braintree.views import braintree_api_blueprint
 
 
 app.register_blueprint(chefs_api_blueprint, url_prefix='/api/v1/chefs')
@@ -24,3 +24,4 @@ app.register_blueprint(review_images_api_blueprint, url_prefix='/api/v1/review_i
 app.register_blueprint(food_categories_api_blueprint, url_prefix='/api/v1/food_categories')
 app.register_blueprint(menu_images_api_blueprint, url_prefix='/api/v1/menu_images')
 app.register_blueprint(menu_images_api_blueprint, url_prefix='/api/v1/chef_menu')
+app.register_blueprint(braintree_api_blueprint, url_prefix='/api/v1/payment')

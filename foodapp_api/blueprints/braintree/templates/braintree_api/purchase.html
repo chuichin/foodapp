@@ -1,0 +1,28 @@
+<head>
+    <meta charset="utf-8">
+    <script src="https://js.braintreegateway.com/web/dropin/1.27.0/js/dropin.min.js"></script>
+</head>
+<body>
+<form id="payment-form" action="{{url_for(braintree_api.process_purchase, id = id)}}" method="POST">
+    <div id="payment"></div>
+    <!-- Service package from chef -->
+    <input type="submit" />
+    <input type="hidden" id="nonce" name="nonce_payment"/>
+</form>
+
+<script type="text/javascript">
+    braintree.dropin.create({
+        container: document.getElementById('payment'),
+        authorization: "{{client_token}}",
+    }, (error, instance) => {
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            instance.requestPaymentMethod((error, payload) => {
+                if (error) console.error(error);
+                document.getElementById('nonce').value = payload.nonce;
+                form.submit();
+            });
+        });
+    });
+</script>
+</body>
