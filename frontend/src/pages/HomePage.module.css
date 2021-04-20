@@ -1,0 +1,104 @@
+.hero {
+  background-color: var(--color-secondary);
+  max-width: 100%;
+  position: relative;
+  padding: 1.5em;
+  text-align: center;
+  border-radius: 1em;
+}
+
+.heroImage {
+  width: 100%;
+}
+
+.heading {
+  font-family: 'Merriweather', serif;
+  margin-top: 1em;
+}
+
+.categories {
+  margin-top: 2em;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2em;
+}
+
+.categoriesHeading {
+  font-family: 'Merriweather', serif;
+  font-size: 1.3rem;
+}
+
+.cardContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1em;
+  margin-top: 2em;
+}
+
+.contentSection {
+  margin-top: 2em;
+}
+
+.contentHeading {
+  font-family: 'Merriweather', serif;
+  font-size: 1.3rem;
+}
+
+.chefCardContainer {
+  margin-top: 2em;
+  display: grid;
+  grid-template-columns: 1fr;
+  list-style: none;
+  grid-gap: 1em;
+  margin-bottom: 3em;
+}
+
+@media only screen and (min-width: 250px) {
+  .cardContainer {
+    grid-template-columns: repeat(auto-fit, minmax(7em, 1fr));
+  }
+}
+
+@media only screen and (min-width: 300px) {
+  .chefCardContainer {
+    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+  }
+}
+
+@media only screen and (min-width: 650px) {
+  .hero {
+    display: flex;
+    padding: 2em;
+    align-items: center;
+    text-align: start;
+  }
+
+  .heroImage {
+    width: 50%;
+    margin-right: 2em;
+    margin-left: -2em;
+  }
+
+  .heading {
+    margin-top: 0;
+    font-size: 1.2rem;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .heading {
+    margin-top: 0;
+    font-size: 1.4rem;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .heading {
+    margin-top: 0;
+    font-size: 1.5rem;
+  }
+}

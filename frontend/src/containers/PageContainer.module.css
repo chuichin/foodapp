@@ -1,0 +1,15 @@
+.pageContainer {
+  padding: 0 1em;
+}
+
+@media only screen and (min-width: 600px) {
+  .pageContainer {
+    padding: 0 2em;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .pageContainer {
+    padding: 0 4em;
+  }
+}

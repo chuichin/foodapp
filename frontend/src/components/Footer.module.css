@@ -1,0 +1,38 @@
+.footer {
+  margin-top: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0.5em;
+}
+
+.linksList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.linksItem:not(:last-child) {
+  margin-bottom: 0.5em;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--color-black);
+}
+
+.socialList {
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+.socialItem:not(:last-child) {
+  margin-right: 1em;
+}
+
+.socialLink {
+  text-decoration: none;
+  color: var(--color-primary);
+  font-size: 1.2rem;
+}

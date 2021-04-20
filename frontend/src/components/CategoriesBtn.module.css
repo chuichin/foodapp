@@ -1,0 +1,59 @@
+.card {
+  all: unset;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  font-size: 0.8rem;
+  border-radius: 0.5em;
+  box-shadow: 0 0 0.7em 0.1em rgba(0, 0, 0, 0.1);
+  transition: 0.4s;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.card:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.icon {
+  background-color: var(--color-white);
+  border-radius: 50%;
+  padding: 0.3em;
+  margin-bottom: 1em;
+  width: 50%;
+}
+
+.arrowIcon {
+  margin-top: 0.5em;
+  background-color: var(--color-primary);
+  padding: 0.25em;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  color: var(--color-white);
+}
+
+.card:hover .arrowIcon {
+  background-color: var(--color-white);
+  color: var(--color-primary);
+}
+
+@media only screen and (max-width: 375px) {
+  .icon {
+    width: 40%;
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .icon {
+    width: 45%;
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .icon {
+    width: 45%;
+  }
+}

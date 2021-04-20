@@ -1,0 +1,76 @@
+.cardContainer {
+  display: flex;
+  padding: 1em;
+  border-radius: 0.5em;
+  box-shadow: 0 0 0.7em 0.1em rgba(0, 0, 0, 0.1);
+  transition: 0.4s;
+  text-decoration: none;
+  color: var(--color-black);
+}
+
+.cardContainer:hover {
+  transform: scale(1.05);
+}
+
+.imageContainer {
+  display: flex;
+  flex: 0.3;
+  position: relative;
+  align-items: flex-start;
+}
+
+.chefImage {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.detailContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 0.6;
+  font-size: 0.7rem;
+}
+
+.name {
+  font-weight: bold;
+  margin-bottom: 0.3em;
+  font-size: 0.9rem;
+}
+
+.category {
+  color: var(--color-gray);
+  margin-bottom: 0.8em;
+}
+
+.price {
+  margin-top: 0.5em;
+  font-size: 0.8rem;
+}
+
+.heartContainer {
+  display: flex;
+  flex: 0.1;
+}
+
+@media only screen and (min-width: 300px) {
+  .chefImage {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
+@media only screen and (min-width: 530px) {
+  .chefImage {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .chefImage {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+}
