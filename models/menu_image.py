@@ -5,4 +5,4 @@ import peewee as pw
 class MenuImage(BaseModel):
     chef = pw.ForeignKeyField(Chef, backref="menu_images", on_delete="CASCADE")
     image_url = pw.TextField(null=True)
-    
+    #should i include Menu_ID?
