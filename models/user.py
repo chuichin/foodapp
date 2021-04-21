@@ -12,7 +12,7 @@ class User(BaseModel):
     image_path = pw.TextField(null=True)
     
     @hybrid_property
-    def profile_picture():
+    def profile_picture(input):
         pass
 
     

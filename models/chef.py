@@ -14,15 +14,16 @@ class Chef(BaseModel):
     payment_info = pw.CharField()
 
     @hybrid_property
-    def calendar():  
-        pass
+    def calendar(input):  
+        return "TBC"
 
     @hybrid_property
-    def overall_rating():
-        pass
+    def overall_rating(input):
+        return "TBC"
     #sum up the ratings
 
     @hybrid_property
-    def image():
-        pass
+    def image(image_path):
+        return "TBC"
     #get the photo url ~
+
