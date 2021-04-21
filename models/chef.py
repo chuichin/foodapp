@@ -1,5 +1,5 @@
-from models.base_model import BaseModel
 import peewee as pw
+from models.base_model import BaseModel
 from playhouse.hybrid import hybrid_property
 
 
@@ -18,9 +18,9 @@ class Chef(BaseModel):
         pass
 
     @hybrid_property
-    def overall_rating():
-        pass
-    #sum up the ratings
+    def overall_rating(self):
+        total_rating = sum([review.rating] for review in self.reviews.select().where(self.reviews == id))
+        return total_rating
 
     @hybrid_property
     def image():

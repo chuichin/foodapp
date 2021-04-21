@@ -1,4 +1,5 @@
-from app import app
+import os
+from app import app, s3
 from flask import Blueprint, Flask, jsonify, request
 # from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 from models.chef import Chef
@@ -126,4 +127,33 @@ def chef_id(id):
             "status": "failed"
         }), 400
 
+# POST /chef/<id>/profile_image - uploading profile image
+@chefs_api_blueprint.route("/<id>/profile_image", methods=["POST"])
+def profile_image(id):
+    chef = Chef.get_or_none(Chef.id == id)
+    if request.files["image_upload"]:
+        file = request.files.get("image_upload")
+        s3.upload_fileobj(
+            file,
+            # need to set .env
+            os.getenv("S3_BUCKET"),
+            file.filename,
+            ExtraArgs={
+                "ACL": "public-read",
+                "ContentType": file.content_type
+            })
+            # need to set .env
+        chef.image_path = f"https://{os.getenv('S3_BUCKET')}.s3-ap-southeast-1.amazonaws.com/{file.filename}"
+        if chef.save():
+            return jsonify({
+                "message": "Profile image successfully uploaded"
+            })
+        else:
+            return jsonify({
+                "message":"Error in uploading profile image"
+            }), 400
+    else:
+        return jsonify({
+            "message":"Error in uploading profile image"
+        }), 400
 

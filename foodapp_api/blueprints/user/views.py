@@ -1,8 +1,10 @@
-from app import app
+import os
+from app import app, s3
 from flask import Blueprint, Flask, jsonify, request
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 from models.user import User
 from werkzeug.security import check_password_hash
+
 
 users_api_blueprint = Blueprint('users_api', __name__)
 
@@ -15,7 +17,6 @@ def user_new():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
     email = request.json.get("email", None)
-    password = request.json.get("password", None)
     payment_info = request.json.get("payment_info", None)
     image_path = request.json.get("image", None)
 
@@ -102,5 +103,34 @@ def user_id(id):
             "status": "failed"
         }), 400
 
+# POST /users/<id>/profile_image - uploading profile image
+@users_api_blueprint.route("/<id>/profile_image", methods=["POST"])
+def profile_image(id):
+    user = User.get_or_none(User.id == id)
+    if request.files["image_upload"]:
+        file = request.files.get("image_upload")
+        s3.upload_fileobj(
+            file,
+            # need to set .env
+            os.getenv("S3_BUCKET"),
+            file.filename,
+            ExtraArgs={
+                "ACL": "public-read",
+                "ContentType": file.content_type
+            })
+            # need to set .env
+        user.image_path = f"https://{os.getenv('S3_BUCKET')}.s3-ap-southeast-1.amazonaws.com/{file.filename}"
+        if user.save():
+            return jsonify({
+                "message": "Profile image successfully uploaded"
+            })
+        else:
+            return jsonify({
+                "message":"Error in uploading profile image"
+            }), 400
+    else:
+        return jsonify({
+            "message":"Error in uploading profile image"
+        }), 400
 
 
