@@ -9,9 +9,9 @@ menu_images_api_blueprint = Blueprint('menu_images_api', __name__)
 def index():
     menu_images = MenuImage.select()
     menu_images = [{
-        "id" = each.id,
-        "chef" = each.chef, 
-        "image_url" = each.image_url
+        "id" : each.id,
+        "chef" : each.chef, 
+        "image_url": each.image_url
     } for each in menu_images]
 
 # POST /menu_images/new

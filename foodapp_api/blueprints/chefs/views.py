@@ -1,13 +1,13 @@
 from app import app
 from flask import Blueprint, Flask, jsonify, request
-from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
+# from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 from models.chef import Chef
 from werkzeug.security import check_password_hash
 
 chefs_api_blueprint = Blueprint('chefs_api',
                                 __name__)
 
-jwt = JWTManager(app) #not sure if needed yet
+# jwt = JWTManager(app) #not sure if needed yet
 
 # GET /chef/all - return list of chefs and details
 @chefs_api_blueprint.route('/all', methods=["GET"])
@@ -19,7 +19,7 @@ def index():
         "email": chef.email,
         # "password": chef.password_hash,
         "image": chef.image,
-        "bio": chef.bio.
+        "bio": chef.bio,
         "price": chef.price,
         "payment_info": chef.payment_info,
         "rating": chef.overall_rating,

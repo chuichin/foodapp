@@ -9,7 +9,7 @@ food_categories_api_blueprint = Blueprint("food_category_api", __name__)
 def index():
     food_categories = FoodCategory.select()
     food_categories = [{
-        "id": each.id
+        "id": each.id,
         "category": each.category,
         "chef": each.chef
     } for each in food_categories]

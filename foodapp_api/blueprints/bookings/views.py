@@ -6,7 +6,7 @@ bookings_api_blueprint = Blueprint('bookings_api', __name__)
 
 # GET /booking/chef/<id> - return all bookings for a chef
 @bookings_api_blueprint.route("/chef/<chef_id>", methods = ["GET"])
-def bookings(chef_id):
+def chef_bookings(chef_id):
     chef_id = request.json.get("chef_id", None)
     all_bookings = Booking.select().where(Booking.chef == chef_id)
     booking = [{
@@ -27,7 +27,7 @@ def bookings(chef_id):
 
 # GET /booking/user/<id>
 @bookings_api_blueprint.route("/user/<user_id>", methods = ["GET"])
-def bookings(user_id):
+def user_bookings(user_id):
     user_id = request.json.get("user_id", None)
     all_bookings = Booking.select().where(Booking.user == user_id)
     booking = [{

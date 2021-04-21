@@ -9,9 +9,9 @@ likes_api_blueprint = Blueprint('likes_api', __name__)
 def likes(chef_id):
     likes = Like.select().where(Like.chef == chef_id)
     likes = [{
-        "id" = like.id,
-        "user_id" = like.user,
-        "chef_id" = like.chef
+        "id": like.id,
+        "user_id": like.user,
+        "chef_id": like.chef
     } for like in likes]
     return jsonify(likes)
 

@@ -9,10 +9,10 @@ review_images_api_blueprint = Blueprint('review_images_api', __name__)
 def review_images(chef_id):
     review_images = ReviewImage.select().where(ReviewImage.chef == chef_id)
     ReviewImage = [{
-        "id" = images.id,
-        "user_id" = images.user,
-        "review_id" = images.review,
-        "image_url" = images.image_url
+        "id" : images.id,
+        "user_id" : images.user,
+        "review_id" : images.review,
+        "image_url" : images.image_url
     } for images in review_images]
     return jsonify(ReviewImage)
 

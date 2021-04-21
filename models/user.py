@@ -1,5 +1,7 @@
 from models.base_model import BaseModel
 import peewee as pw
+from playhouse.hybrid import hybrid_property
+
 
 class User(BaseModel):
     username = pw.CharField(unique=True, null= False)

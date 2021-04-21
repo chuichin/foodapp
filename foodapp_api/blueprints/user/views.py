@@ -52,12 +52,13 @@ def user_new():
         }]
         return jsonify(success_response)
 
-# POST /user/login - login as user
+# POST /users/login - login as user
 @users_api_blueprint.route("/login", methods = ["POST"])
 def user_login():
     # Request requires username, password 
     username = request.json.get("username", None)
     password = request.json.get("password", None)
+    email = request.json.get("email", None)
     user = User.get_or_none(User.email == email)
     if user:
         result = check_password_hash(user.password_hash, password)
@@ -86,7 +87,7 @@ def user_login():
 
 @users_api_blueprint.route("/<id>", methods = ["GET"])
 def user_id(id):
-    user = User.get_or_none(user.id == id)
+    user = User.get_or_none(User.id == id)
     if user:
         return jsonify({
             "id": user.id,

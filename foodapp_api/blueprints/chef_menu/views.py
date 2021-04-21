@@ -8,8 +8,8 @@ chef_menu_api_blueprint = Blueprint('chef_menu_api', __name__)
 def chef_menu():
     chef_menus = ChefMenu.select()
     chef_menus = [{
-        "id" = menu.id,
-        "food_category_id" = menu.food_category_id,
-        "menu" = menu.menu
+        "id":menu.id,
+        "food_category_id": menu.food_category_id,
+        "menu" : menu.menu
     } for menu in chef_menus]
     return jsonify(chef_menus)

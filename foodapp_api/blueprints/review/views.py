@@ -9,11 +9,11 @@ reviews_api_blueprint = Blueprint('reviews_api', __name__)
 def index():
     reviews = Review.select()
     review = [{
-        "id" = review.id,
-        "user_id" = review.user,
-        "chef_id" = review.chef,
-        "comment" = review.comment,
-        "rating" = review.rating
+        "id": review.id,
+        "user_id":review.user,
+        "chef_id" : review.chef,
+        "comment" : review.comment,
+        "rating" : review.rating
     } for review in reviews]
     return jsonify(review)
 
@@ -22,11 +22,11 @@ def index():
 def review_chef(chef_id):
     reviews = Review.select().where(Review.chef == chef_id)
     review = [{
-        "id" = review.id,
-        "user_id" = review.user,
-        "chef_id" = review.chef,
-        "comment" = review.comment,
-        "rating" = review.rating
+        "id": review.id,
+        "user_id" : review.user,
+        "chef_id" : review.chef,
+        "comment" : review.comment,
+        "rating" : review.rating
     } for review in reviews]
     return jsonify(review)
 
