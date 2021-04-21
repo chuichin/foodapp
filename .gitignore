@@ -4,3 +4,5 @@
 *.env
 foodapp_web/static/.webassets-cache
 foodapp_web/static/gen
+
+# This uses pc-flask conda environment
