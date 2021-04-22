@@ -47,5 +47,4 @@ def index(chef_id):
 # GET /food_categories/chefs
 @food_categories_api_blueprint.route('/chefs', methods=["GET"])
 def chefs():
-    category = 
     chefs_list = FoodCategory.select(FoodCategory.chef_id).where().distinct()

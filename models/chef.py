@@ -19,8 +19,10 @@ class Chef(BaseModel):
 
     @hybrid_property
     def overall_rating(self):
-        total_rating = sum([review.rating] for review in self.reviews.select().where(self.reviews == id))
-        return total_rating
+        total_rating = sum([review.rating for review in self.reviews])
+        total_review = self.reviews.count()
+        overall = total_rating/total_review
+        return round(overall,2)
 
 
     @hybrid_property

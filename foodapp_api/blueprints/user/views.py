@@ -107,7 +107,7 @@ def user_id(id):
 @users_api_blueprint.route("/<id>/profile_image", methods=["POST"])
 def profile_image(id):
     user = User.get_or_none(User.id == id)
-    if request.files["image_upload"]:
+    if request.files.get("image_upload"):
         file = request.files.get("image_upload")
         s3.upload_fileobj(
             file,

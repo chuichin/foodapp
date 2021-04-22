@@ -18,4 +18,5 @@ class Booking(BaseModel):
     hob_type = pw.CharField(null=True)
     no_of_hob = pw.IntegerField(null=False)
     cancelled = pw.BooleanField(default=False)
-    payment_type = pw.CharField(default=False)
+    payment_status = pw.CharField(default=False) #False means not paid
+    confirmation_status = pw.CharField(default=False) #True when chef accept booking
