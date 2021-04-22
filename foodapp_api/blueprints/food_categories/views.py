@@ -44,4 +44,8 @@ def index(chef_id):
     else:
         return jsonify({"message": "No records for this chef or in the list yet"})
     
-# to add new for filtering
+# GET /food_categories/chefs
+@food_categories_api_blueprint.route('/chefs', methods=["GET"])
+def chefs():
+    chefs_list = FoodCategory.select(FoodCategory.chef_id).where().distinct()
+
