@@ -1,4 +1,5 @@
-from app import app
+import os
+from app import app, s3
 from models.menu_image import MenuImage
 from flask import Flask, request, jsonify, Blueprint
 
@@ -38,3 +39,4 @@ def new_menu_image():
             "message": "Missing chef id or image url",
             "status": "failed"
         }), 400
+  
