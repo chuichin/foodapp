@@ -1,8 +1,10 @@
 import os
 import peewee as pw
 import datetime
-from database import db
+# from database import db
+from playhouse.postgres_ext import PostgresqlExtDatabase
 
+db = PostgresqlExtDatabase('dummy_foodapp')
 
 class BaseModel(pw.Model):
     created_at = pw.DateTimeField(default=datetime.datetime.now)

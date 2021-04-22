@@ -5,5 +5,7 @@ import peewee as pw
 
 class ChefMenu(BaseModel):
     chef = pw.ForeignKeyField(Chef, backref="menus",  on_delete="CASCADE")
-    food_category = pw.TextField(null=False)
-    menu = pw.TextField(null=False)
+    # food_category = pw.ForeignKeyField(FoodCategory, backref="menus", on_delete="CASCADE")
+    appetiser = pw.TextField(null=False)
+    main = pw.TextField(null=False)
+    dessert = pw.TextField(null=False)

@@ -24,19 +24,39 @@ def index(chef_id):
 
 # POST /menu_images/new
 @menu_images_api_blueprint.route('/new', methods=["POST"])
-def new_menu_image():
-    chef_id = request.json.get('chef', None)
-    image_url = request.json.get('image_url', None)
-    if chef_id and image_url:
+def new_menu_image():  
+    if request.file['image_url']:
+        file = request.file.get('image_url')
+        s3.upload_fileobj(
+            file,
+            # need to set .env
+            os.getenv("S3_BUCKET"),
+            file.filename,
+            ExtraArgs={
+                "ACL": "public-read",
+                "ContentType": file.content_type
+            })
+            # need to set .env
+        chef_id = request.json.get('chef', None)
+        image_url = f"https://{os.getenv('S3_BUCKET')}.s3-ap-southeast-1.amazonaws.com/{file.filename}"
         new = MenuImage(chef=chef_id, image_url=image_url)
         if new.save():
             return jsonify({
-                "message": "Successully posted new image",
+                "message": "successully posted new image",
                 "status": "success"
-            }), 200
-    else:
-        return jsonify({
-            "message": "Missing chef id or image url",
-            "status": "failed"
-        }), 400
-  
+            })
+    # chef_id = request.json.get('chef', None)
+    # image_url = request.json.get('image_url', None)
+    # if chef_id and image_url:
+    #     new = MenuImage(chef=chef_id, image_url=image_url)
+    #     if new.save():
+    #         return jsonify({
+    #             "message": "Successully posted new image",
+    #             "status": "success"
+    #         }), 200
+    # else:
+    #     return jsonify({
+    #         "message": "Missing chef id or image url",
+    #         "status": "failed"
+    #     }), 400
+    

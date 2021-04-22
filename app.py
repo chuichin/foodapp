@@ -1,5 +1,6 @@
 import os
 import config
+import boto3, botocore
 from flask import Flask
 from models.base_model import db
 
@@ -13,6 +14,11 @@ if os.getenv('FLASK_ENV') == 'production':
 else:
     app.config.from_object("config.DevelopmentConfig")
 
+s3 = boto3.client(
+    "s3",
+    aws_secret_access_key= app.config.get("S3_KEY"),
+    aws_access_key_id= app.config.get("S3_SECRET"),
+)
 
 @app.before_request
 def before_request():

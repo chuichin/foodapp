@@ -26,6 +26,6 @@ app.register_blueprint(review_images_api_blueprint, url_prefix='/api/v1/review_i
 app.register_blueprint(food_categories_api_blueprint, url_prefix='/api/v1/food_categories')
 app.register_blueprint(menu_images_api_blueprint, url_prefix='/api/v1/menu_images')
 app.register_blueprint(chef_menu_api_blueprint, url_prefix='/api/v1/chef_menus')
-app.register_blueprint(braintree_api_blueprint, url_prefix='/api/v1/payment')
+app.register_blueprint(braintree_api_blueprint, url_prefix='/api/v1/payments')
 app.register_blueprint(search_api_blueprint, url_prefix='/api/v1/searches')
 

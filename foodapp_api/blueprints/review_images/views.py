@@ -1,4 +1,5 @@
-from app import app
+import os
+from app import app, s3
 from flask import Blueprint, Flask, jsonify, request
 from models.review_image import ReviewImage
 from models.review import Review
@@ -20,11 +21,20 @@ def review_images(chef_id):
 # POST /review_images/new - Post list of review images
 @review_images_api_blueprint.route('/new', methods=["POST"])
 def new_review_image():
-    image_url = request.json.get("image_url", None)
-    review_id = request.json.get("review_id", None)
-    user_id = request.json.get("user_id", None)
-    existing_review_id = Review.get_or_none(Review.id==review_id)
-    if existing_review_id:
+    if request.files["image_url"]:
+        file= request.files.get("image_url")
+        s3.upload_fileobj(
+            file,
+            os.getenv("S3_BUCKET"),
+            file.filename,
+            ExtraArgs={
+                "ACL": "public-read",
+                "ContentType": file.content_type
+            }
+        )
+        image_url = f"https://{os.getenv('S3_BUCKET')}.s3-ap-southeast-1.amazonaws.com/{file.filename}"
+        review_id = request.json.get("review_id", None)
+        user_id = request.json.get("user_id", None)
         new_review_image = ReviewImage(review=review_id, user=user_id, image_url=image_url)
         if new_review_image.save():
             return jsonify({
