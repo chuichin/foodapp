@@ -2,6 +2,7 @@ import os
 from app import app, s3
 from flask import Blueprint, Flask, jsonify, request
 from models.review_image import ReviewImage
+from models.review import Review
 
 review_images_api_blueprint = Blueprint('review_images_api', __name__)
 
@@ -23,14 +24,14 @@ def new_review_image():
     if request.files["image_url"]:
         file= request.files.get("image_url")
         s3.upload_fileobj(
-                    file,
-                    os.getenv("S3_BUCKET"),
-                    file.filename,
-                    ExtraArgs={
-                        "ACL": "public-read",
-                        "ContentType": file.content_type
-                    }
-                )
+            file,
+            os.getenv("S3_BUCKET"),
+            file.filename,
+            ExtraArgs={
+                "ACL": "public-read",
+                "ContentType": file.content_type
+            }
+        )
         image_url = f"https://{os.getenv('S3_BUCKET')}.s3-ap-southeast-1.amazonaws.com/{file.filename}"
         review_id = request.json.get("review_id", None)
         user_id = request.json.get("user_id", None)
@@ -38,5 +39,13 @@ def new_review_image():
         if new_review_image.save():
             return jsonify({
                 "message": "successfully posted review image",
-                "status": "success"
+                "status": "success",
+                "review_id": review_id,
+                "image_url": image_url,
+                "user_id": user_id 
             })
+    else:
+        return jsonify({
+            "message": "failed to post",
+            "status": "failed"
+        }), 400

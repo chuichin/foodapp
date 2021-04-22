@@ -48,3 +48,4 @@ def index(chef_id):
 @food_categories_api_blueprint.route('/chefs', methods=["GET"])
 def chefs():
     chefs_list = FoodCategory.select(FoodCategory.chef_id).where().distinct()
+
