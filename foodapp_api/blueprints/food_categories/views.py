@@ -49,25 +49,25 @@ def index(chef_id):
         return jsonify(message="This chef does not exist", status="failed"), 400
 
 # GET /food_categories/?category=xxx
-@food_categories_api_blueprint.route('/', methods=["GET"])
-def chef_results():
-    category = request.args.get("category", None)
-    if category:
-        results_list = FoodCategory.select().join(Chef).where(FoodCategory.category == category)
-        # breakpoint()
-        if results_list:
-            results = [{
-                "status": "success",
-                "category": category,
-                "no_of_results": results_list.count()   ,
-                "chef_id" : [ each.chef_id for each in results_list]
-                    }]
-            return jsonify(results)
-        else:
-            return jsonify({
-                "message": "This category does not exist yet",
-                "status": "failed"
-            }), 400
+# @food_categories_api_blueprint.route('/', methods=["GET"])
+# def chef_results():
+#     category = request.args.get("category", None)
+#     if category:
+#         results_list = FoodCategory.select().join(Chef).where(FoodCategory.category == category)
+#         # breakpoint()
+#         if results_list:
+#             results = [{
+#                 "status": "success",
+#                 "category": category,
+#                 "no_of_results": results_list.count()   ,
+#                 "chef_id" : [ each.chef_id for each in results_list]
+#                     }]
+#             return jsonify(results)
+#         else:
+#             return jsonify({
+#                 "message": "This category does not exist yet",
+#                 "status": "failed"
+#             }), 400
 
 
 
