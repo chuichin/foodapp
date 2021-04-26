@@ -16,8 +16,8 @@ else:
 
 s3 = boto3.client(
     "s3",
-    aws_secret_access_key= app.config.get("S3_KEY"),
-    aws_access_key_id= app.config.get("S3_SECRET"),
+    aws_secret_access_key= app.config.get("S3_SECRET"),
+    aws_access_key_id= app.config.get("S3_KEY"),
 )
 
 @app.before_request

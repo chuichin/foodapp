@@ -1,5 +1,6 @@
 import os
 from app import app, s3
+import boto3, botocore
 from models.menu_image import MenuImage
 from flask import Flask, request, jsonify, Blueprint
 
@@ -23,40 +24,34 @@ def index(chef_id):
         }), 400
 
 # POST /menu_images/new
-@menu_images_api_blueprint.route('/new', methods=["POST"])
+@menu_images_api_blueprint.route('/new/<menu_id>', methods=["POST"])
 def new_menu_image():  
-    if request.file['image_url']:
-        file = request.file.get('image_url')
+    if request.files['image']:
+        file = request.files.get('image')
         s3.upload_fileobj(
             file,
-            # need to set .env
-            os.getenv("S3_BUCKET"),
-            file.filename,
+            "foodapp-new",
+            f"menu-images/{file.filename}",
             ExtraArgs={
                 "ACL": "public-read",
                 "ContentType": file.content_type
             })
-            # need to set .env
-        chef_id = request.json.get('chef', None)
-        image_url = f"https://{os.getenv('S3_BUCKET')}.s3-ap-southeast-1.amazonaws.com/{file.filename}"
-        new = MenuImage(chef=chef_id, image_url=image_url)
-        if new.save():
-            return jsonify({
-                "message": "successully posted new image",
-                "status": "success"
-            })
-    # chef_id = request.json.get('chef', None)
-    # image_url = request.json.get('image_url', None)
-    # if chef_id and image_url:
-    #     new = MenuImage(chef=chef_id, image_url=image_url)
-    #     if new.save():
-    #         return jsonify({
-    #             "message": "Successully posted new image",
-    #             "status": "success"
-    #         }), 200
-    # else:
-    #     return jsonify({
-    #         "message": "Missing chef id or image url",
-    #         "status": "failed"
-    #     }), 400
     
+    
+# DELETE /menu_images/delete/<menu_images_id>
+@menu_images_api_blueprint.route('/delete/<menu_image_id>', methods=["DELETE"])
+def delete(menu_image_id):
+    menu_image = MenuImage.get_or_none(MenuImage.id == menu_image_id)
+    if menu_image:
+        if menu_image.delete_instance():
+            return jsonify({
+                "message": "Successfully deleted this image",
+                "menu_image_id": menu_image_id,
+                "status": "Success"
+            }), 200
+    else:
+        return jsonify({
+            "message": "This image does not exist",
+            "status": "Failed"
+        }), 400
+
