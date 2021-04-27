@@ -1,7 +1,7 @@
 import os
 from app import app, s3
 from flask import Blueprint, Flask, jsonify, request
-from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity, get_jwt_header, create_refresh_token
+from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity, get_jwt_header
 from models.user import User
 from werkzeug.security import check_password_hash, generate_password_hash
 import datetime
@@ -88,8 +88,6 @@ def user_login():
 @users_api_blueprint.route('/me', methods=["GET"])
 @jwt_required()
 def my_profile():
-    # verify_jwt_in_request(optional=False, fresh=True)
-    # breakpoint()
     if get_jwt_identity():
         current_user = get_jwt_identity()
         if get_jwt_header()['type'] == 'User':
@@ -243,3 +241,4 @@ def delete_jwt():
                 return jsonify({"message": "Successfully deleted this user", "user_id": user.id, "status": "success"}), 200
         else:
             return jsonify({"message": "Unable to delete, user no longer exist", "status": "failed"}), 400
+
