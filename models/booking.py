@@ -16,7 +16,7 @@ class Booking(BaseModel):
     no_of_hob = pw.IntegerField(null=True)
     oven = pw.BooleanField(null=True)
     price = pw.FloatField(null=True)
-    diet_restrictions = pw.BooleanField(null=True)
+    diet_restrictions  = pw.BooleanField(null=True)
     proposed_date = pw.DateField(null=True)
     message = pw.TextField(null=True)
     completed = pw.BooleanField(default=False)
