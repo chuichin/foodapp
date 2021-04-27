@@ -122,7 +122,7 @@ def all_users():
             "phone": user.phone,
         } for user in all_users]), 200
     else:
-        return jsonify(message="No users found", status="failed"), 400
+        return jsonify([]), 400
 
 # GET /users/<user_id> 
 @users_api_blueprint.route("/<user_id>", methods = ["GET"])
