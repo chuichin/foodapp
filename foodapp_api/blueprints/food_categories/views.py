@@ -62,13 +62,6 @@ def chef_results():
                 "chef_id" : [ each.chef_id for each in results_list]
                     }]
             return jsonify(results)
-        else:
-            return jsonify({
-                "message": "This category does not exist yet",
-                "status": "failed"
-            }), 400
-
-
 
 
 # DELETE /food_categories/delete/<food_category_id>
