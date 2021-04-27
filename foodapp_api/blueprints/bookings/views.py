@@ -349,7 +349,7 @@ def user_paid(booking_id):
         booking = Booking.get_or_none(Booking.id == booking_id)
         if booking:
             if booking.user_id == current_user.id:
-                booking.payment = True
+                booking.payment_status = True
                 if booking.save():
                     return jsonify({
                         "booking_id": booking_id,
