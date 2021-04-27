@@ -8,17 +8,19 @@ reviews_api_blueprint = Blueprint('reviews_api', __name__)
 
 # POST /reviews/new
 @reviews_api_blueprint.route('/new', methods=["POST"])
+@jwt_required()
 def review_new():
-    user_id = request.json.get("user", None)
-    chef_id = request.json.get("chef", None)
-    comment = request.json.get("comment", None)
-    rating = request.json.get("rating", None)   
+    user = User.get_or_none(User.email == get_jwt_identity())
 
-    if user_id and chef_id:
-        existing_user = User.get_or_none(User.id == user_id)
+    if request.is_json:
+        chef_id = request.json.get("chef", None)
+        comment = request.json.get("comment", None)
+        rating = request.json.get("rating", None)   
+
         existing_chef = Chef.get_or_none(Chef.id == chef_id)
-        if existing_user and existing_chef:
-            review = Review(user=user_id, chef=chef_id, comment=comment, rating=rating)
+
+        if existing_chef:
+            review = Review(user=user.id, chef=existing_chef.id, comment=comment, rating=rating)
             if review.save():
                 return jsonify({
                     "message": "successfully submitted a review",
@@ -29,13 +31,11 @@ def review_new():
                     "message": "failed to submit a review",
                     "status": "failed"
                 }), 400
-        
-        elif existing_user== None:
-            return jsonify(message ="User does not exist", status="failed"), 400
-        
+
         elif existing_chef==None:
             return jsonify(message ="Chef does not exist", status="failed"), 400
-
+    else:
+        return jsonify(message="Nothing is passed"), 400
                 
 
 # GET /reviews - Return all reviews
