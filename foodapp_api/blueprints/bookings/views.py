@@ -72,7 +72,7 @@ def chef_bookings(chef_id):
                     "payment_status": booking.payment_status,
                     "confirmed": booking.confirmed,
                     "active": booking.active,
-                    "cancelled": booking.cancelled,
+                    "cancelled": booking.cancelled
                 } for booking in all_bookings]
             }
             return jsonify(booking), 200
