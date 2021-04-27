@@ -20,7 +20,7 @@ class Booking(BaseModel):
     proposed_date = pw.DateField(null=True)
     message = pw.TextField(null=True)
     completed = pw.BooleanField(default=False)
-    payment_status = pw.CharField(default=False)
+    payment_status = pw.BooleanField(default=False)
     confirmed = pw.BooleanField(default=False) 
     cancelled = pw.BooleanField(default=False)
     active = pw.BooleanField(default=False)

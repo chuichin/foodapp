@@ -340,3 +340,85 @@ def user_cancel(booking_id):
             "message": "You have to log in as User, not Chef",
             "status": "Failed"
         }), 400
+
+@bookings_api_blueprint.route("/user-paid/<booking_id>", methods=["PUT"])
+@jwt_required()
+def user_paid(booking_id):
+    if get_jwt_header()['type'] == "User":
+        current_user = User.get_or_none(User.email == get_jwt_identity())
+        booking = Booking.get_or_none(Booking.id == booking_id)
+        if booking:
+            if booking.user_id == current_user.id:
+                booking.payment = True
+                if booking.save():
+                    return jsonify({
+                        "booking_id": booking_id,
+                        "completed": booking.completed,
+                        "payment_status": booking.payment_status,
+                        "confirmed": booking.confirmed,
+                        "active": booking.active,
+                        "cancelled": booking.cancelled,
+                        "status": "success"
+                    }), 200
+                else:
+                    return jsonify({
+                        "message": "Unable to pay ", 
+                        "status": "Failed"
+                    }), 400
+            else:
+                return jsonify({
+                    "message": "You are logged in as another user",
+                    "booking_chef_id": booking.chef_id,
+                    "status": "failed"
+                }), 400
+        else:
+            return jsonify({
+                "message": "Booking does not exist",
+                "status": "Failed"
+            }), 400
+    else:
+        return jsonify({
+            "message": "You have to log in as User, not Chef",
+            "status": "Failed"
+        }), 400
+
+@bookings_api_blueprint.route("/user-completed/<booking_id>", methods=["PUT"])
+@jwt_required()
+def user_completed(booking_id):
+    if get_jwt_header()['type'] == "User":
+        current_user = User.get_or_none(User.email == get_jwt_identity())
+        booking = Booking.get_or_none(Booking.id == booking_id)
+        if booking:
+            if booking.user_id == current_user.id:
+                booking.completed = True
+                if booking.save():
+                    return jsonify({
+                        "booking_id": booking_id,
+                        "completed": booking.completed,
+                        "payment_status": booking.payment_status,
+                        "confirmed": booking.confirmed,
+                        "active": booking.active,
+                        "cancelled": booking.cancelled,
+                        "status": "success"
+                    }), 200
+                else:
+                    return jsonify({
+                        "message": "Unable to complete booking", 
+                        "status": "Failed"
+                    }), 400
+            else:
+                return jsonify({
+                    "message": "You are logged in as another user",
+                    "booking_chef_id": booking.chef_id,
+                    "status": "failed"
+                }), 400
+        else:
+            return jsonify({
+                "message": "Booking does not exist",
+                "status": "Failed"
+            }), 400
+    else:
+        return jsonify({
+            "message": "You have to log in as User, not Chef",
+            "status": "Failed"
+        }), 400
