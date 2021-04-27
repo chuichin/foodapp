@@ -11,7 +11,7 @@ menu_images_api_blueprint = Blueprint('menu_images_api', __name__)
 # GET /menu_images - Return list of menu images
 @menu_images_api_blueprint.route('/<chef_menu_id>', methods=["GET"])
 def index(chef_menu_id):
-    menu_images = MenuImage.select().where(MenuImage.chef_menu_id == chef_menu_id)
+    menu_images = MenuImage.select().where(MenuImage.chef_menu == chef_menu_id)
     if menu_images:
         menu_images = [{
             "menu_images_id" : each.id,
