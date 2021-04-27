@@ -18,7 +18,7 @@ def booking_new():
     current_user = get_jwt_identity()
     if get_jwt_header()['type'] == "User":
         response = request.get_json()
-        user = User.get_or_none(User.username == current_user)
+        user = User.get_or_none(User.email == current_user)
 
         new_booking = Booking(user=user.id, chef=response['chef'], address=response['address'], service_type=response['service_type'], pax=response['pax'], meal_type=response['meal_type'], menu_type=response['menu_type'], hob_type=response['hob_type'], no_of_hob=response['no_of_hob'], oven=response['oven'], price=response['price'], diet_restrictions=response['diet_restrictions'], proposed_date=response['proposed_date'], message=response['message'], completed=False, payment_status=False, confirmed=False, active=True, cancelled=False)
         if new_booking.save():
@@ -207,7 +207,7 @@ def delete(booking_id):
 @jwt_required()
 def chef_approve(booking_id):
     if get_jwt_header()['type'] == "Chef":
-        current_chef = Chef.get_or_none(Chef.username == get_jwt_identity())
+        current_chef = Chef.get_or_none(Chef.email == get_jwt_identity())
         booking = Booking.get_or_none(Booking.id == booking_id)
         if booking:
             if booking.chef_id == current_chef.id:
@@ -245,7 +245,7 @@ def chef_approve(booking_id):
 @jwt_required()
 def chef_reject(booking_id):
     if get_jwt_header()['type'] == "Chef":
-        current_chef = Chef.get_or_none(Chef.username == get_jwt_identity())
+        current_chef = Chef.get_or_none(Chef.email == get_jwt_identity())
         booking = Booking.get_or_none(Booking.id == booking_id)
         if booking:
             if booking.chef_id == current_chef.id:
@@ -284,7 +284,7 @@ def chef_reject(booking_id):
 @jwt_required()
 def user_cancel(booking_id):
     if get_jwt_header()['type'] == "User":
-        current_user = User.get_or_none(User.username == get_jwt_identity())
+        current_user = User.get_or_none(User.email == get_jwt_identity())
         booking = Booking.get_or_none(Booking.id == booking_id)
         if booking:
             if booking.user_id == current_user.id:
