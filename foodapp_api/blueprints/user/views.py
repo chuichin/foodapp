@@ -30,10 +30,12 @@ def user_new():
         else:
             newUser = User(username=username, email=email, password_hash=generate_password_hash(password), phone=phone)
             if newUser.save():
+                access_token = create_access_token(identity=user.username, expires_delta=datetime.timedelta(minutes=60), additional_headers={'type':'User'})
                 newUser = User.get(User.username == username, User.email == email)
                 success_response = [{
                     "message": "Successfully created a user and signed in",
                     "status": "success",
+                    "auth-token": access_token,
                     "user": {
                         "id": newUser.id,
                         "username":username,

@@ -30,10 +30,12 @@ def chef_new():
         else:
             newUser = Chef(username=username, email=email, password_hash=generate_password_hash(password), phone=phone)
             if newUser.save():
+                access_token = create_access_token(identity=chef.username, expires_delta=datetime.timedelta(minutes=60), additional_headers={'type':'Chef'})
                 newUser = Chef.get(Chef.username == username, Chef.email == email)
                 success_response = [{
                     "message": "Successfully created a user and signed in",
                     "status": "success",
+                    "auth-token": access_token,
                     "user": {
                         "id": newUser.id,
                         "username":username,
