@@ -40,7 +40,6 @@ def new_like():
                 })
 
 
-
 # GET /likes/<chef_id> - Return list of likes for a chef
 @likes_api_blueprint.route('/<chef_id>', methods=["GET"])
 def likes(chef_id):

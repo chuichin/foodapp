@@ -24,7 +24,7 @@ def new_menu(chef_id):
             return jsonify({
                 "message":"Successfully created new menu",
                 "menu":{
-                    "id":create_menu.id,
+                    "menu_id":create_menu.id,
                     "chef": create_menu.chef_id,
                     "food_category": create_menu.food_category,
                     "appetiser" : create_menu.appetiser,
@@ -55,7 +55,7 @@ def all_menus():
             "_status": "success",
             "_count": chef_menus.count(),
             "results": [{
-                "id":menu.id,
+                "menu_id":menu.id,
                 "chef": menu.chef_id,
                 "food_category_id": menu.food_category,
                 "appetiser" : menu.appetiser,
@@ -78,7 +78,7 @@ def menu(chef_id):
             "message": "successful",
             "count": menus.count(),
             "results": [{
-                "id":menu.id,
+                "menu_id":menu.id,
                 "chef": menu.chef_id,
                 "food_category": menu.food_category,
                 "appetiser" : menu.appetiser,
