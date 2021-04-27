@@ -9,13 +9,14 @@ from flask import Flask, request, jsonify, Blueprint
 menu_images_api_blueprint = Blueprint('menu_images_api', __name__)
 
 # GET /menu_images - Return list of menu images
-@menu_images_api_blueprint.route('/<chef_id>', methods=["GET"])
-def index(chef_id):
-    menu_images = MenuImage.select().where(MenuImage.chef_id == chef_id)
+@menu_images_api_blueprint.route('/<chef_menu_id>', methods=["GET"])
+def index(chef_menu_id):
+    menu_images = MenuImage.select().where(MenuImage.chef_menu_id == chef_menu_id)
     if menu_images:
         menu_images = [{
             "menu_images_id" : each.id,
             "chef" : each.chef_id, 
+            "menu_id": each.chef_menu_id,
             "image_url": each.image_url
         } for each in menu_images]
         return jsonify(menu_images), 200
