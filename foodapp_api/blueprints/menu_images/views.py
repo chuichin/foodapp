@@ -23,11 +23,12 @@ def new_menu_image(chef_menu_id):
         # breakpoint()
         new_menu_image = MenuImage(chef=existing_chef.id, chef_menu=chef_menu_id, image_path=image_path)
         if new_menu_image.save():
+            image = MenuImage.get(MenuImage.id == new_menu_image.id)
             return jsonify({
                 "message": "Successfully posted this menu's image",
-                "chef_id": new_menu_image.chef_id,
-                "menu_id": new_menu_image.chef_menu_id,
-                "image_path": new_menu_image.image_path,
+                "chef_id": image.chef_id,
+                "menu_id": image.chef_menu_id,
+                "image_path": image.image_path,
             }), 200
 
 
