@@ -64,12 +64,9 @@ def all_menus():
                 "dessert": menu.dessert,
                 "description": menu.description
             } for menu in chef_menus]}
-        return jsonify(chef_menus)
+        return jsonify(chef_menus), 200
     else:
-        return jsonify({
-            "message":"There are no menus yet",
-            "status": "failed"
-        }), 400
+        return jsonify({"results": []}), 200
 
 
 # return all Menus for one chef
@@ -93,7 +90,7 @@ def menu(chef_id):
         }
         return jsonify(menus), 200
     else:
-        return jsonify({"message": "No records for this chef or in the list yet"}), 400
+        return jsonify({"results": []}), 200
     
 # Return one specific menu
 @chef_menu_api_blueprint.route('/<menu_id>', methods=["GET"])
@@ -142,7 +139,7 @@ def chef_category_menu(chef_id, food_category):
         else:
             existing_food_category = FoodCategory.get_or_none(FoodCategory.chef_id == chef_id, FoodCategory.category == food_category)
             if existing_food_category:
-                return jsonify(message="This chef does not have menu yet for this category", status="Failed"), 400
+                return jsonify({"results": []}), 400
             else: 
                 return jsonify(message="This chef does not have this food category yet, create one first", status="Failed"), 400
 

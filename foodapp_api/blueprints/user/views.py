@@ -37,7 +37,7 @@ def user_new():
                 success_response = [{
                     "message": "Successfully created a user and signed in",
                     "status": "success",
-                    "auth-token": access_token,
+                    "auth_token": access_token,
                     "user": {
                         "id": newUser.id,
                         "username": newUser.username,
@@ -62,7 +62,7 @@ def user_login():
             access_token = create_access_token(identity=user.username, expires_delta=datetime.timedelta(minutes=60), additional_headers={'type':'User'})
             if result:
                 return jsonify({
-                    "auth-token": access_token,
+                    "auth_token": access_token,
                     "message": "successfully signed in",
                     "status": "success",
                     "user": {

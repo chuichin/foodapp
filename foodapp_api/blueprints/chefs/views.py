@@ -37,7 +37,7 @@ def chef_new():
                 success_response = [{
                     "message": "Successfully created a user and signed in",
                     "status": "success",
-                    "auth-token": access_token,
+                    "auth_token": access_token,
                     "user": {
                         "id": newChef.id,
                         "username": newChef.username,
@@ -64,7 +64,7 @@ def chef_login():
             access_token = create_access_token(identity=chef.username, expires_delta=datetime.timedelta(minutes=60), additional_headers={'type':'Chef'})
             if result:
                 return jsonify({
-                    "auth-token": access_token,
+                    "auth_token": access_token,
                     "message": "successfully signed in",
                     "status": "success",
                     "user": {
@@ -107,9 +107,7 @@ def index():
         }
         return jsonify(all_chefs), 200
     else:
-        return jsonify({
-            "message": "There are no chefs created yet"
-        })
+        return jsonify({"results": []}), 200
 
 
 

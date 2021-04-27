@@ -37,7 +37,7 @@ def booking_new():
     else:
         return jsonify(message="You are logged in as Chef, not User ", status="success"), 400
 
-# GET /bookings/chef/<chef_idid> - return all bookings for a chef
+# GET /bookings/chef/<chef_id> - return all bookings for a chef
 @bookings_api_blueprint.route("/chef/<chef_id>", methods = ["GET"])
 def chef_bookings(chef_id):
     existing_chef = Chef.get_or_none(Chef.id == chef_id)
@@ -70,10 +70,7 @@ def chef_bookings(chef_id):
             }
             return jsonify(booking), 200
         else:
-            return jsonify({
-                "message": "There are 0 bookings for this chef",
-                "status": "Failed"
-            }), 200
+            return jsonify({"results": []}), 200
     else:
         return jsonify({
             "message": "This chef does not exist",
@@ -114,10 +111,7 @@ def user_bookings(user_id):
             }
             return jsonify(booking), 200
         else:
-            return jsonify({
-                "message": "There are 0 bookings for this chef",
-                "status": "Failed"
-            }), 400
+            return jsonify({"results": []}), 200
     else:
         return jsonify({
             "message": "This user does not not exist",

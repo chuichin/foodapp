@@ -18,10 +18,7 @@ def index(chef_id):
         } for each in menu_images]
         return jsonify(menu_images), 200
     else:
-        return jsonify({
-            "message": "No images for this chef, or chef doesnt exist",
-            "status": "failed"
-        }), 400
+        return jsonify([]), 400
 
 # POST /menu_images/new
 @menu_images_api_blueprint.route('/new/<menu_id>', methods=["POST"])
