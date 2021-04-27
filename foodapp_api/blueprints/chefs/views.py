@@ -28,16 +28,17 @@ def chef_new():
         elif Chef.get_or_none(Chef.email == email) :
             return jsonify(message="Email already exist", status="failed"), 400
         else:
-            newUser = Chef(username=username, email=email, password_hash=generate_password_hash(password), phone=phone)
-            if newUser.save():
-                access_token = create_access_token(identity=chef.username, expires_delta=datetime.timedelta(minutes=60), additional_headers={'type':'Chef'})
-                newUser = Chef.get(Chef.username == username, Chef.email == email)
+            newChef = Chef(username=username, email=email, password_hash=generate_password_hash(password), phone=phone)
+            if newChef.save():
+                
+                newChef = Chef.get(Chef.username == username, Chef.email == email)
+                access_token = create_access_token(identity=newChef.username, expires_delta=datetime.timedelta(minutes=60), additional_headers={'type':'Chef'})
                 success_response = [{
                     "message": "Successfully created a user and signed in",
                     "status": "success",
                     "auth-token": access_token,
                     "user": {
-                        "id": newUser.id,
+                        "id": newChef.id,
                         "username":username,
                         "email": email,
                         "phone": phone
