@@ -29,6 +29,8 @@ def new_menu_image(chef_menu_id):
                 "chef_id": image.chef_id,
                 "menu_id": image.chef_menu_id,
                 "image_path": image.image_path,
+                "menu_image_id": image.id
+
             }), 200
 
 
