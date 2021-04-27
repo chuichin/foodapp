@@ -100,6 +100,21 @@ def my_profile():
                 "message": "This account is a Chef's account"
             }), 400
 
+# GET /users/
+@users_api_blueprint.route('/', methods=["GET"])
+def all_users():
+    if User.select():
+        all_users = User.select()
+        return jsonify([{
+            "profileImage": user.image_path,
+            "createdAt": user.created_at,
+            "_id": user.id,
+            "name" : user.username,
+            "email" : user.email,
+            "phone": user.phone,
+        } for user in all_users]), 200
+    else:
+        return jsonify(message="No users found", status="failed"), 400
 
 # GET /users/<user_id> 
 @users_api_blueprint.route("/<user_id>", methods = ["GET"])
