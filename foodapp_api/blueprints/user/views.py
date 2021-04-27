@@ -101,12 +101,12 @@ def my_profile():
                     "phone": user.phone,
                     "profileImage": user.image_path
                 }), 200
-            else: 
-                return jsonify({"message": "This account no longer exists"}), 400
-        else:
-            return jsonify({
-                "message": "This account is a Chef's account"
-            }), 400
+            # else: 
+        #         return jsonify({"message": "This account no longer exists"}), 200
+        # else:
+        #     return jsonify({
+        #         "message": "This account is a Chef's account"
+        #     }), 200
 
 # GET /users/
 @users_api_blueprint.route('/', methods=["GET"])
