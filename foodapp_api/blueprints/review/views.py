@@ -75,10 +75,7 @@ def review_chef(chef_id):
                     } for review in reviews]}
             return jsonify(review), 200
         else: 
-            return jsonify({
-                "message": "No reviews for this chef", 
-                "status": "failed"
-            }), 400
+            return jsonify([]), 200
     else:
         return jsonify(message="This chef does not exist", status="Failed"), 400
 
