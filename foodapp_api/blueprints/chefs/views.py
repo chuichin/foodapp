@@ -141,7 +141,7 @@ def chef_id(id):
 @jwt_required()
 def update():
     current_chef = get_jwt_identity()
-    chef = Chef.get_or_none(Chef.username==current_chef)
+    chef = Chef.get_or_none(Chef.email==current_chef)
     if get_jwt_header()['type'] == 'Chef':
         params = request.get_json()
         if params:
@@ -196,7 +196,7 @@ def my_profile():
 @jwt_required()
 def update_image():
     if get_jwt_header()['type'] == "Chef":
-        chef = Chef.get_or_none(Chef.username == get_jwt_identity())
+        chef = Chef.get_or_none(Chef.email == get_jwt_identity())
         if request.content_length == 0:
             return jsonify(message="No images passed", status="failed"), 400
         elif request.files['chef_image']:

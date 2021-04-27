@@ -178,7 +178,7 @@ def check_email():
 @jwt_required()
 def update_jwt():
     current_user = get_jwt_identity()
-    user = User.get_or_none(User.username==current_user)
+    user = User.get_or_none(User.email==current_user)
     if get_jwt_header()['type'] == 'User':
         params = request.get_json()
         if params:
@@ -205,7 +205,7 @@ def update_jwt():
 @jwt_required()
 def update_image():
     if get_jwt_header()['type'] == "User":
-        user = User.get_or_none(User.username == get_jwt_identity())
+        user = User.get_or_none(User.email == get_jwt_identity())
         if request.content_length == 0:
             return jsonify(message="No images passed", status="failed"), 400
         elif request.files['user_image']:
