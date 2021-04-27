@@ -170,7 +170,7 @@ def my_profile():
     if get_jwt_identity():
         current_chef = get_jwt_identity()
         if get_jwt_header()['type'] == 'Chef':
-            chef = Chef.get_or_none(Chef.username == current_chef)
+            chef = Chef.get_or_none(Chef.email == current_chef)
             if chef:
                 return jsonify({
                     "_id": chef.id,

@@ -91,7 +91,7 @@ def my_profile():
     if get_jwt_identity():
         current_user = get_jwt_identity()
         if get_jwt_header()['type'] == 'User':
-            user = User.get_or_none(User.username == current_user)
+            user = User.get_or_none(User.email == current_user)
             if user:
                 return jsonify({
                     "_id": user.id,
