@@ -44,7 +44,7 @@ def index(chef_id):
             }
             return jsonify(food_categories), 200
         else:
-            return jsonify({"message": "No records for this chef or in the list yet"}), 400
+            return jsonify([]), 200
     else:
         return jsonify(message="This chef does not exist", status="failed"), 400
 
