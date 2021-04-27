@@ -3,8 +3,12 @@ from flask import Blueprint, Flask, jsonify, request
 from models.review import Review
 from models.user import User
 from models.chef import Chef
+from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity, get_jwt_header
 
 reviews_api_blueprint = Blueprint('reviews_api', __name__)
+
+jwt = JWTManager(app) 
+
 
 # POST /reviews/new
 @reviews_api_blueprint.route('/new', methods=["POST"])
@@ -26,12 +30,6 @@ def review_new():
                     "message": "successfully submitted a review",
                     "status": "success"
                 }), 200
-            else:
-                return jsonify({
-                    "message": "failed to submit a review",
-                    "status": "failed"
-                }), 400
-
         elif existing_chef==None:
             return jsonify(message ="Chef does not exist", status="failed"), 400
     else:
