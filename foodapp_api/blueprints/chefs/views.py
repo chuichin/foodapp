@@ -22,6 +22,7 @@ def chef_new():
         password = request.json.get("password", None)
         email = request.json.get("email", None)
         phone = request.json.get("phone", None)
+        image = request.json.get("profileImage", None)
         
         if Chef.get_or_none(Chef.username == username):
             return jsonify(message="Username already exist", status="failed"), 400
@@ -41,7 +42,8 @@ def chef_new():
                         "id": newChef.id,
                         "username":username,
                         "email": email,
-                        "phone": phone
+                        "phone": phone,
+                        "profileImage": image
                     }
             }]
             return jsonify(success_response), 200
