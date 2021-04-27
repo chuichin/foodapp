@@ -63,7 +63,7 @@ def chef_results():
                     }]
             return jsonify(results), 200
         else:
-            return jsonify({"chef_id": []}), 200
+            return jsonify([{"chef_id": []}]), 200
 
 
 # DELETE /food_categories/delete/<food_category_id>
