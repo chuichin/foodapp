@@ -71,7 +71,7 @@ def chef_bookings(chef_id):
                     "payment_status": booking.payment_status,
                     "confirmed": booking.confirmed,
                     "active": booking.active,
-                    "cancelled": booking.cancelled
+                    "cancelled": booking.cancelled,
                 } for booking in all_bookings]
             }
             return jsonify(booking), 200
@@ -112,7 +112,7 @@ def user_bookings(user_id):
                     "completed": booking.completed,
                     "payment_status": booking.payment_status,
                     "confirmed": booking.confirmed,
-                    "active": booking.active
+                    "active": booking.active,
                     "cancelled": booking.cancelled
                 } for booking in all_bookings]
             }
@@ -180,7 +180,7 @@ def update(booking_id):
                     "message": "Successfully updated", 
                     "booking_id": booking.id,
                     "updated_at": booking.updated_at,
-                    "updated_column": [each for each in params]
+                    "updated_column": [each for each in params],
                     "completed": booking.completed,
                     "payment_status": booking.payment_status,
                     "confirmed": booking.confirmed,
@@ -232,7 +232,7 @@ def chef_approve(booking_id):
                         "payment_status": booking.payment_status,
                         "confirmed": booking.confirmed,
                         "active": booking.active,
-                        "cancelled": booking.cancelled
+                        "cancelled": booking.cancelled,
                         "status": "success"
                     }), 200
             else:
@@ -269,7 +269,7 @@ def chef_reject(booking_id):
                         "payment_status": booking.payment_status,
                         "confirmed": booking.confirmed,
                         "active": booking.active,
-                        "cancelled": booking.cancelled
+                        "cancelled": booking.cancelled,
                         "status": "success"
                     }), 200
                 else:
@@ -313,7 +313,7 @@ def user_cancel(booking_id):
                         "payment_status": booking.payment_status,
                         "confirmed": booking.confirmed,
                         "active": booking.active,
-                        "cancelled": booking.cancelled
+                        "cancelled": booking.cancelled,
                         "status": "success"
                     }), 200
                 else:
