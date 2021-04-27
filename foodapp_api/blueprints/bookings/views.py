@@ -41,16 +41,16 @@ def booking_new():
     else:
         return jsonify(message="You are logged in as Chef, not User ", status="success"), 400
 
-# GET /bookings/chef/<chef_id> - return all bookings for a chef
-@bookings_api_blueprint.route("/chef/<chef_id>", methods = ["GET"])
-def chef_bookings(chef_id):
-    existing_chef = Chef.get_or_none(Chef.id == chef_id)
+# GET /bookings/chef- return all bookings for a chef
+@bookings_api_blueprint.route("/chef", methods = ["GET"])
+@jwt_required()
+def chef_bookings():
+    existing_chef = Chef.get_or_none(Chef.email== get_jwt_identity())
     if existing_chef:
-        all_bookings = Booking.select().where(Booking.chef == chef_id)
+        all_bookings = Booking.select().where(Booking.chef == existing_chef.id)
         if all_bookings:
             booking = {
                 "status": "success",
-                
                 "count": all_bookings.count(),
                 "results": [{
                     "booking_id": booking.id,
@@ -85,16 +85,16 @@ def chef_bookings(chef_id):
         }), 400
 
 
-# GET /bookings/user/<id>
-@bookings_api_blueprint.route("/user/<user_id>", methods = ["GET"])
-def user_bookings(user_id):
-    existing_user = User.get_or_none(User.id == user_id)
+# GET /bookings/user
+@bookings_api_blueprint.route("/user", methods = ["GET"])
+@jwt_required()
+def user_bookings():
+    existing_user = User.get_or_none(User.email == get_jwt_identity())
     if existing_user:
-        all_bookings = Booking.select().where(Booking.user == user_id)
+        all_bookings = Booking.select().where(Booking.user == existing_user.id)
         if all_bookings:
             booking = {
                 "status": "success",
-                
                 "count": all_bookings.count(),
                 "results": [{
                     "booking_id": booking.id,
