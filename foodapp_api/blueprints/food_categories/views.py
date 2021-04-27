@@ -61,7 +61,9 @@ def chef_results():
                 "no_of_results": results_list.count(),
                 "chef_id" : [ each.chef_id for each in results_list]
                     }]
-            return jsonify(results)
+            return jsonify(results), 200
+        else:
+            return jsonify([]), 200
 
 
 # DELETE /food_categories/delete/<food_category_id>
