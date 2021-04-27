@@ -22,14 +22,14 @@ def user_new():
         password = request.json.get("password", None)
         email = request.json.get("email", None)
         phone = request.json.get("phone", None)
-        image = request.json.get("profileImage", None)
+        image_path = request.json.get("profileImage", None)
         
         if User.get_or_none(User.username == username):
             return jsonify(message="Username already exist", status="failed"), 400
         elif User.get_or_none(User.email == email) :
             return jsonify(message="Email already exist", status="failed"), 400
         else:
-            newUser = User(username=username, email=email, password_hash=generate_password_hash(password), phone=phone)
+            newUser = User(username=username, email=email, password_hash=generate_password_hash(password), phone=phone, image_path=image_path)
             if newUser.save():
                 
                 newUser = User.get(User.username == username, User.email == email)
@@ -40,10 +40,10 @@ def user_new():
                     "auth-token": access_token,
                     "user": {
                         "id": newUser.id,
-                        "username":username,
-                        "email": email,
-                        "phone": phone,
-                        "profileImage": image
+                        "username": newUser.username,
+                        "email": newUser.email,
+                        "phone": newUser.phone,
+                        "profileImage": newUser.image_path
                     }
             }]
             return jsonify(success_response), 200
@@ -67,7 +67,10 @@ def user_login():
                     "status": "success",
                     "user": {
                         "id": user.id,
-                        "username": user.username
+                        "username": user.username,
+                        "email": user.email,
+                        "phone": user.phone,
+                        "profileImage": user.image_path
                     }
                 })
             else:
