@@ -53,12 +53,12 @@ def index(chef_id):
 def chef_results():
     category = request.args.get("category", None)
     if category:
-        results_list = FoodCategory.select()where(FoodCategory.category == category)
+        results_list = FoodCategory.select().where(FoodCategory.category == category)
         if results_list:
             results = [{
                 "status": "success",
                 "category": category,
-                "no_of_results": results_list.count()   ,
+                "no_of_results": results_list.count(),
                 "chef_id" : [ each.chef_id for each in results_list]
                     }]
             return jsonify(results)
