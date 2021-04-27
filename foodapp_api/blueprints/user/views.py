@@ -235,7 +235,7 @@ def update_image():
 def delete_jwt():
     if get_jwt_identity():
         current_user = get_jwt_identity()
-        user = User.get_or_none(User.username == current_user)
+        user = User.get_or_none(User.email == current_user)
         if user:
             if user.delete_instance():
                 return jsonify({"message": "Successfully deleted this user", "user_id": user.id, "status": "success"}), 200
