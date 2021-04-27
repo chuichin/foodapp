@@ -24,6 +24,7 @@ s3 = boto3.client(
 def before_request():
     db.connect()
 
+# Comment to trigger build
 
 @app.teardown_request
 def _db_close(exc):
