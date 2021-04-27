@@ -227,7 +227,7 @@ def update_image():
 def delete_jwt():
     if get_jwt_identity():
         current_chef = get_jwt_identity()
-        chef = Chef.get_or_none(Chef.username == current_chef)
+        chef = Chef.get_or_none(Chef.email == current_chef)
         if chef:
             if chef.delete_instance():
                 return jsonify({"message": "Successfully deleted this chef", "chef_id": chef.id, "status": "success"}), 200
