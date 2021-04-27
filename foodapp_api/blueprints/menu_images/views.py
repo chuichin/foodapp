@@ -19,7 +19,7 @@ menu_images_api_blueprint = Blueprint('menu_images_api', __name__)
 def new_menu_image(chef_menu_id): 
     existing_chef = Chef.get_or_none(Chef.email == get_jwt_identity())
     if existing_chef:
-        image_path = request.json.get("image_url", None)
+        image_path = request.json.get("image_path", None)
         # breakpoint()
         new_menu_image = MenuImage(chef=existing_chef.id, chef_menu=chef_menu_id, image_path=image_path)
         if new_menu_image.save():
