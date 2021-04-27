@@ -27,7 +27,12 @@ def booking_new():
                 "status": "success",
                 "booking_id": new_booking.id,
                 "chef_id": new_booking.chef_id,
-                "user_id": new_booking.user_id
+                "user_id": new_booking.user_id,
+                "completed":new_booking.completed,
+                "payment_status":new_booking.payment_status,
+                "confirmed":new_booking.confirmed,
+                "active":new_booking.active,
+                "cancelled":new_booking.cancelled
             }), 200
         else:
             return jsonify({
@@ -65,7 +70,8 @@ def chef_bookings(chef_id):
                     "completed": booking.completed,
                     "payment_status": booking.payment_status,
                     "confirmed": booking.confirmed,
-                    "active": booking.active
+                    "active": booking.active,
+                    "cancelled": booking.cancelled
                 } for booking in all_bookings]
             }
             return jsonify(booking), 200
@@ -107,6 +113,7 @@ def user_bookings(user_id):
                     "payment_status": booking.payment_status,
                     "confirmed": booking.confirmed,
                     "active": booking.active
+                    "cancelled": booking.cancelled
                 } for booking in all_bookings]
             }
             return jsonify(booking), 200
@@ -143,8 +150,9 @@ def booking_id(booking_id):
             "completed": booking.completed,
             "payment_status": booking.payment_status,
             "confirmed": booking.confirmed,
-            "cancelled": booking.cancelled,
-            "active": booking.active
+            "active": booking.active,
+            "cancelled": booking.cancelled
+            
         }), 200
     else: 
         return jsonify({
@@ -173,6 +181,11 @@ def update(booking_id):
                     "booking_id": booking.id,
                     "updated_at": booking.updated_at,
                     "updated_column": [each for each in params]
+                    "completed": booking.completed,
+                    "payment_status": booking.payment_status,
+                    "confirmed": booking.confirmed,
+                    "active": booking.active,
+                    "cancelled": booking.cancelled
                 })
             else:
                 return jsonify({
@@ -215,14 +228,13 @@ def chef_approve(booking_id):
                 if booking.save():
                     return jsonify({
                         "booking_id": booking_id,
+                        "completed": booking.completed,
+                        "payment_status": booking.payment_status,
                         "confirmed": booking.confirmed,
+                        "active": booking.active,
+                        "cancelled": booking.cancelled
                         "status": "success"
                     }), 200
-                else:
-                    return jsonify({
-                        "message": "Unable to approve booking", 
-                        "status": "Failed"
-                    }), 400
             else:
                 return jsonify({
                     "message": "You are logged in as another chef",
@@ -253,7 +265,11 @@ def chef_reject(booking_id):
                 if booking.save():
                     return jsonify({
                         "booking_id": booking_id,
+                        "completed": booking.completed,
+                        "payment_status": booking.payment_status,
+                        "confirmed": booking.confirmed,
                         "active": booking.active,
+                        "cancelled": booking.cancelled
                         "status": "success"
                     }), 200
                 else:
@@ -293,8 +309,11 @@ def user_cancel(booking_id):
                 if booking.save():
                     return jsonify({
                         "booking_id": booking_id,
+                        "completed": booking.completed,
+                        "payment_status": booking.payment_status,
+                        "confirmed": booking.confirmed,
                         "active": booking.active,
-                        "cancelled": booking.cancelled,
+                        "cancelled": booking.cancelled
                         "status": "success"
                     }), 200
                 else:
