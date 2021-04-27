@@ -51,6 +51,7 @@ def chef_bookings(chef_id):
         if all_bookings:
             booking = {
                 "status": "success",
+                "booking_id": booking.id,
                 "count": all_bookings.count(),
                 "results": [{
                     "user": booking.user_id,
@@ -93,6 +94,7 @@ def user_bookings(user_id):
         if all_bookings:
             booking = {
                 "status": "success",
+                "booking_id": booking.id,
                 "count": all_bookings.count(),
                 "results": [{
                     "user": booking.user_id,
@@ -132,7 +134,7 @@ def booking_id(booking_id):
     booking = Booking.get_or_none(Booking.id == booking_id)
     if booking:
         return jsonify({
-            "id": booking.id,
+            "booking_id": booking.id,
             "user": booking.user_id,
             "chef": booking.chef_id,
             "address": booking.address,
