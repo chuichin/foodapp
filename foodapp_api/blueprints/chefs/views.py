@@ -33,7 +33,7 @@ def chef_new():
             if newChef.save():
                 
                 newChef = Chef.get(Chef.username == username, Chef.email == email)
-                access_token = create_access_token(identity=newChef.username, expires_delta=datetime.timedelta(minutes=60), additional_headers={'type':'Chef'})
+                access_token = create_access_token(identity=newChef.email, expires_delta=datetime.timedelta(minutes=60), additional_headers={'type':'Chef'})
                 success_response = [{
                     "message": "Successfully created a user and signed in",
                     "status": "success",
@@ -61,7 +61,7 @@ def chef_login():
         chef = Chef.get_or_none(Chef.email == email)
         if chef:
             result = check_password_hash(chef.password_hash, password)
-            access_token = create_access_token(identity=chef.username, expires_delta=datetime.timedelta(minutes=60), additional_headers={'type':'Chef'})
+            access_token = create_access_token(identity=chef.email, expires_delta=datetime.timedelta(minutes=60), additional_headers={'type':'Chef'})
             if result:
                 return jsonify({
                     "auth_token": access_token,

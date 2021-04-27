@@ -33,7 +33,7 @@ def user_new():
             if newUser.save():
                 
                 newUser = User.get(User.username == username, User.email == email)
-                access_token = create_access_token(identity=newUser.username, expires_delta=datetime.timedelta(minutes=60), additional_headers={'type':'User'})
+                access_token = create_access_token(identity=newUser.email, expires_delta=datetime.timedelta(minutes=60), additional_headers={'type':'User'})
                 success_response = [{
                     "message": "Successfully created a user and signed in",
                     "status": "success",
@@ -59,7 +59,7 @@ def user_login():
         user = User.get_or_none(User.email == email)
         if user:
             result = check_password_hash(user.password_hash, password)
-            access_token = create_access_token(identity=user.username, expires_delta=datetime.timedelta(minutes=60), additional_headers={'type':'User'})
+            access_token = create_access_token(identity=user.email, expires_delta=datetime.timedelta(minutes=60), additional_headers={'type':'User'})
             if result:
                 return jsonify({
                     "auth_token": access_token,
