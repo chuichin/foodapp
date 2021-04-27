@@ -51,9 +51,10 @@ def chef_bookings(chef_id):
         if all_bookings:
             booking = {
                 "status": "success",
-                "booking_id": booking.id,
+                
                 "count": all_bookings.count(),
                 "results": [{
+                    "booking_id": booking.id,
                     "user": booking.user_id,
                     "chef": booking.chef_id,
                     "address": booking.address,
@@ -94,9 +95,10 @@ def user_bookings(user_id):
         if all_bookings:
             booking = {
                 "status": "success",
-                "booking_id": booking.id,
+                
                 "count": all_bookings.count(),
                 "results": [{
+                    "booking_id": booking.id,
                     "user": booking.user_id,
                     "chef": booking.chef_id,
                     "address": booking.address,
